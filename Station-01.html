@@ -145,29 +145,33 @@ button:active { transform: scale(0.98); }
 </div>
 
 <script>
-// Startzeit = Zeitpunkt QR-Code Scan
 const startZeit = Date.now();
 
 function bewerten() {
   const antwort = document.getElementById("antwort").value.trim();
 
-  // Punkte setzen
+  // Punkte
   document.getElementById("punkte").value =
     (antwort === "112") ? "10" : "0";
 
-  // Zeit in Sekunden
-  document.getElementById("zeit").value =
-    Math.round((Date.now() - startZeit) / 1000);
+  // Zeit in Sekunden (immer > 0)
+  const sekunden = Math.max(
+    1,
+    Math.round((Date.now() - startZeit) / 1000)
+  );
 
-  // Formular ausblenden, Erfolg anzeigen
+  document.getElementById("zeit").value = sekunden;
+
+  // UI umschalten
   setTimeout(() => {
     document.getElementById("formular").style.display = "none";
     document.getElementById("gesendet").style.display = "block";
   }, 200);
 
-  return true; // Formular wird an Google gesendet
+  return true;
 }
 </script>
+
 
 </body>
 </html>
