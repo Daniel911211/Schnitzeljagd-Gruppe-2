@@ -95,23 +95,45 @@
       ❓ Welche Nummer hat der europäische Notruf?
     </div>
 
-    <form 
-      action="https://docs.google.com/forms/d/e/1FAIpQLSdk6YOYdRqYYPjkuwNohjtIyYi6CIKm0cePdIuoDRR44wPRdw/formResponse"
-      method="POST"
-      target="_self"
-    >
-      <!-- feste Werte -->
-      <input type="hidden" name="entry.237485034" value="2">  <!-- Gruppe -->
-      <input type="hidden" name="entry.568549425" value="1">  <!-- Station -->
-      <input type="hidden" name="entry.54659171" value="10">  <!-- Punkte -->
+  <form
+  action="https://docs.google.com/forms/d/e/1FAIpQLSdk6YOYdRqYYPjkuwNohjtIyYi6CIKm0cePdIuoDRR44wPRdw/formResponse"
+  method="POST"
+  target="_self"
+  onsubmit="return bewerten();"
+>
 
-      <!-- Antwort -->
-      <input 
-        type="text"
-        name="entry.1414978898"
-        placeholder="Antwort eingeben"
-        required
-      >
+  <!-- feste Werte -->
+  <input type="hidden" name="entry.237485034" value="2"> <!-- Gruppe -->
+  <input type="hidden" name="entry.568549425" value="1"> <!-- Station -->
+  <input type="hidden" name="entry.54659171" id="punkte" value=""> <!-- Punkte -->
+
+  <!-- Antwort -->
+  <input
+    type="text"
+    id="antwort"
+    name="entry.1414978898"
+    placeholder="Antwort eingeben"
+    required
+  >
+
+  <script>
+    function bewerten() {
+      const antwort = document.getElementById("antwort").value.trim();
+      const punkte = document.getElementById("punkte");
+
+      if (antwort === "112") {
+        punkte.value = "10";
+      } else {
+        punkte.value = "0";
+      }
+
+      return true;
+    }
+  </script>
+
+  <button type="submit">Antwort absenden</button>
+</form>
+
 
       <button type="submit">Antwort absenden</button>
     </form>
