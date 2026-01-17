@@ -85,64 +85,31 @@
   </div>
 
   <form
-    action="https://docs.google.com/forms/d/e/1FAIpQLSf2c7-3JTvk9BarK9MBxpo73ykdESEy84IV-Yo7OxPOvg6zOw/formResponse"
-    method="POST"
-    target="hidden_iframe"
-    onsubmit="return bewerten();"
+  action="https://docs.google.com/forms/d/e/1FAIpQLSf2c7-3JTvk9BarK9MBxpo73ykdESEy84IV-Yo7OxPOvg6zOw/formResponse"
+  method="POST"
+  target="hidden_iframe"
+  onsubmit="return bewerten();"
+>
+
+  <!-- FESTE IDs – nur Werte ändern -->
+  <input type="hidden" name="entry.1841279378" value="2"> <!-- Gruppe -->
+  <input type="hidden" name="entry.1611288883" value="1"> <!-- Station -->
+  <input type="hidden" name="entry.476999913"  id="punkte" value="0">
+  <input type="hidden" name="entry.1051828811" id="zeit" value="">
+
+  <input
+    type="text"
+    id="antwort"
+    name="entry.1865983702"
+    placeholder="Antwort eingeben"
+    required
   >
 
-    <!-- feste Werte -->
-    <input type="hidden" name="entry.1841279378" value="2"> <!-- Gruppe -->
-    <input type="hidden" name="entry.1611288883" value="1"> <!-- Station -->
-    <input type="hidden" name="entry.476999913"  id="punkte" value="0"> <!-- Punkte -->
-    <input type="hidden" name="entry.1051828811" id="zeit" value=""> <!-- Zeit -->
+  <button type="submit">Antwort absenden</button>
+</form>
 
-    <!-- Antwort -->
-    <input
-      type="text"
-      id="antwort"
-      name="entry.1865983702"
-      placeholder="Antwort eingeben"
-      required
-    >
+<iframe name="hidden_iframe" style="display:none;"></iframe>
 
-    <button type="submit">Antwort absenden</button>
-  </form>
-
-  <iframe name="hidden_iframe" style="display:none;"></iframe>
-
-  <div class="footer">
-    Schnitzeljagd · Jugendfeuerwehr Neuhof
-  </div>
-</div>
-
-<script>
-  // Startzeit beim QR-Scan / Seitenaufruf
-  const startZeit = Date.now();
-
-  function bewerten() {
-    const antwort = document.getElementById("antwort").value.trim();
-    const punkte  = document.getElementById("punkte");
-    const zeit    = document.getElementById("zeit");
-
-    // Punktevergabe
-    punkte.value = (antwort === "112") ? "10" : "0";
-
-    // Zeit in Sekunden
-    zeit.value = Math.round((Date.now() - startZeit) / 1000);
-
-    // Mehrfachantwort verhindern
-    localStorage.setItem("station1_gruppe1", "done");
-
-    return true;
-  }
-
-  // Schutz vor erneutem Antworten
-  //if (localStorage.getItem("station1_gruppe1") === "done") {
-    //document.body.innerHTML =
-      //"<h2 style='color:white;text-align:center'>✅ Diese Station wurde bereits erledigt.</h2>";
-  }
-</script>
 <script>
 const startZeit = Date.now();
 
@@ -153,16 +120,16 @@ function bewerten() {
     (antwort === "112") ? "10" : "0";
 
   document.getElementById("zeit").value =
-    Math.round((Date.now() - startZeit) / 1000);
+    Math.max(1, Math.round((Date.now() - startZeit) / 1000));
 
-  // Formular ausblenden, Erfolg anzeigen
-  setTimeout(() => {
-    document.querySelector("form").style.display = "none";
-    document.getElementById("gesendet").style.display = "block";
-  }, 200);
-
-  return true; // Formular wird an Google gesendet
+  return true;
 }
+
+
+   // Schutz vor erneutem Antworten
+  //if (localStorage.getItem("station1_gruppe1") === "done") {
+    //document.body.innerHTML =
+ //"<h2 style='color:white;text-align:center'>✅ Diese Station wurde bereits erledigt.</h2>";
 </script>
 </body>
 </html>
