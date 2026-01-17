@@ -16,24 +16,63 @@ body {
   justify-content: center;
   align-items: center;
 }
+
 .card {
   background: rgba(2,6,23,.85);
   padding: 28px;
   border-radius: 14px;
   width: 100%;
   max-width: 420px;
+  box-shadow: 0 20px 40px rgba(0,0,0,.5);
 }
-input, button {
+
+h2 {
+  margin-top: 0;
+  color: #60a5fa;
+}
+
+/* 🔥 SCHÖNES dunkles Antwortfeld */
+input[type="text"] {
   width: 100%;
   padding: 12px;
   margin-top: 12px;
+  border-radius: 10px;
+  border: 1px solid #334155;
+  background: #020617;
+  color: #e5e7eb;
+  font-size: 1rem;
 }
+
+input[type="text"]::placeholder {
+  color: #94a3b8;
+}
+
+input[type="text"]:focus {
+  outline: none;
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 2px rgba(96,165,250,0.3);
+}
+
+/* ✅ eindeutig klickbarer Button */
 button {
-  background: #2563eb;
+  width: 100%;
+  padding: 12px;
+  margin-top: 16px;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+button:active {
+  transform: scale(0.98);
 }
 </style>
 </head>
@@ -43,37 +82,37 @@ button {
 <iframe name="hidden_iframe" style="display:none;"></iframe>
 
 <div class="card">
-<h2>📍 Station 1</h2>
-<p>Gruppe 2 · Feuerwehr-Frage</p>
+  <h2>📍 Station 1</h2>
+  <p>Gruppe 2 · Feuerwehr-Frage</p>
 
-<p>❓ Welche Nummer hat der europäische Notruf?</p>
+  <p>❓ Welche Nummer hat der europäische Notruf?</p>
 
-<form
-  action="https://docs.google.com/forms/d/e/1FAIpQLSdk6YOYdRqYYPjkuwNohjtIyYi6CIKm0cePdIuoDRR44wPRdw/formResponse"
-  method="POST"
-  target="hidden_iframe"
-  onsubmit="return bewerten();"
->
+  <form
+    action="https://docs.google.com/forms/d/e/1FAIpQLSdk6YOYdRqYYPjkuwNohjtIyYi6CIKm0cePdIuoDRR44wPRdw/formResponse"
+    method="POST"
+    target="hidden_iframe"
+    onsubmit="return bewerten();"
+  >
 
-<input type="hidden" name="entry.237485034" value="2">
-<input type="hidden" name="entry.568549425" value="1">
-<input type="hidden" name="entry.54659171" id="punkte" value="0">
-<input type="hidden" name="entry.1051828811" id="zeit" value="">
+    <input type="hidden" name="entry.237485034" value="2">
+    <input type="hidden" name="entry.568549425" value="1">
+    <input type="hidden" name="entry.54659171" id="punkte" value="0">
+    <input type="hidden" name="entry.1051828811" id="zeit" value="">
 
-<input
-  type="text"
-  id="antwort"
-  name="entry.1414978898"
-  placeholder="Antwort eingeben"
-  required
->
+    <input
+      type="text"
+      id="antwort"
+      name="entry.1414978898"
+      placeholder="Antwort eingeben"
+      required
+    >
 
-<button type="submit">Antwort absenden</button>
-</form>
+    <button type="submit">Antwort absenden</button>
+  </form>
 
-<p style="font-size:.8rem;text-align:center;margin-top:12px;">
-Schnitzeljagd · Jugendfeuerwehr Neuhof
-</p>
+  <p style="font-size:.8rem;text-align:center;margin-top:14px;color:#64748b;">
+    Schnitzeljagd · Jugendfeuerwehr Neuhof
+  </p>
 </div>
 
 <script>
@@ -81,12 +120,11 @@ const startZeit = Date.now();
 
 function bewerten() {
   const antwort = document.getElementById("antwort").value.trim();
-  document.getElementById("punkte").value = (antwort === "112") ? "10" : "0";
+  document.getElementById("punkte").value =
+    (antwort === "112") ? "10" : "0";
+
   document.getElementById("zeit").value =
     Math.round((Date.now() - startZeit) / 1000);
-
-  // erst später wieder aktivieren:
-  // localStorage.setItem("station1_gruppe2", "done");
 
   return true;
 }
