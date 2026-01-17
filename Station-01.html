@@ -95,17 +95,17 @@
       ❓ Welche Nummer hat der europäische Notruf?
     </div>
 
-  <form
+ <form
   action="https://docs.google.com/forms/d/e/1FAIpQLSdk6YOYdRqYYPjkuwNohjtIyYi6CIKm0cePdIuoDRR44wPRdw/formResponse"
   method="POST"
-  target="_self"
   onsubmit="return bewerten();"
 >
 
   <!-- feste Werte -->
   <input type="hidden" name="entry.237485034" value="2"> <!-- Gruppe -->
   <input type="hidden" name="entry.568549425" value="1"> <!-- Station -->
-  <input type="hidden" name="entry.54659171" id="punkte" value=""> <!-- Punkte -->
+  <input type="hidden" name="entry.54659171"  id="punkte" value="0"> <!-- Punkte -->
+  <input type="hidden" name="entry.1051828811" value=""> <!-- Zeit -->
 
   <!-- Antwort -->
   <input
@@ -116,20 +116,24 @@
     required
   >
 
-  <script>
-    function bewerten() {
-      const antwort = document.getElementById("antwort").value.trim();
-      const punkte = document.getElementById("punkte");
+  <button type="submit">Antwort absenden</button>
+</form>
 
-      if (antwort === "112") {
-        punkte.value = "10";
-      } else {
-        punkte.value = "0";
-      }
+<script>
+function bewerten() {
+  const antwort = document.getElementById("antwort").value.trim();
+  const punkte  = document.getElementById("punkte");
 
-      return true;
-    }
-  </script>
+  if (antwort === "112") {
+    punkte.value = "10";
+  } else {
+    punkte.value = "0";
+  }
+
+  return true; // Formular absenden
+}
+</script>
+
 
   <button type="submit">Antwort absenden</button>
 </form>
