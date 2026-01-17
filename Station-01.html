@@ -43,12 +43,14 @@ button {
   border:none;
   border-radius:10px;
   font-weight:bold;
+  cursor:pointer;
 }
 </style>
 </head>
 
 <body>
 
+<!-- WICHTIG: Hidden IFrame -->
 <iframe name="hidden_iframe" style="display:none;"></iframe>
 
 <div class="card">
@@ -58,19 +60,19 @@ button {
   <p>❓ Welche Nummer hat der europäische Notruf?</p>
 
   <form
-    action="https://docs.google.com/forms/d/e/1FAIpQLSfosz1E2rF3MxRSQzkChKTitZ-7EhdJPBw3OdIkEckZpFWijw/viewform"
+    action="https://docs.google.com/forms/d/e/1FAIpQLSfosz1E2rF3MxRSQzkChKTitZ-7EhdJPBw3OdIkEckZpFWijw/formResponse"
     method="POST"
     target="hidden_iframe"
     onsubmit="return vorbereiten();"
   >
 
-    <!-- FESTE WERTE -->
+    <!-- FESTE FELDER -->
     <input type="hidden" name="entry.237485034" value="2"> <!-- Gruppe -->
     <input type="hidden" name="entry.568549425" value="1"> <!-- Station -->
-    <input type="hidden" name="entry.54659171"  id="punkte" value="1">
-    <input type="hidden" name="entry.1797066367" id="zeit" value="1">
+    <input type="hidden" name="entry.54659171" id="punkte" value="0"> <!-- Punkte -->
+    <input type="hidden" name="entry.1797066367" id="zeit" value="0"> <!-- Zeit -->
 
-    <!-- ANTWORT (Pflicht!) -->
+    <!-- ANTWORT -->
     <input
       type="text"
       id="antwort"
@@ -89,17 +91,18 @@ const startZeit = Date.now();
 function vorbereiten() {
   const antwort = document.getElementById("antwort").value.trim();
 
-  // Punkte IMMER setzen
+  // Punkte
   document.getElementById("punkte").value =
     (antwort === "112") ? "10" : "0";
 
-  // Zeit IMMER >= 1
+  // Zeit in Sekunden (immer >= 1)
   document.getElementById("zeit").value =
     Math.max(1, Math.round((Date.now() - startZeit) / 1000));
 
-  return true; // EXTREM WICHTIG
+  return true; // FORMULAR MUSS TRUE ZURÜCKGEBEN
 }
 </script>
 
 </body>
 </html>
+
