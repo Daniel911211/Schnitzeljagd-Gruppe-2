@@ -42,14 +42,28 @@ h1 {
   margin-bottom: 18px;
 }
 
-input[type=text] {
+input[type="text"] {
   width: 100%;
   padding: 12px;
-  border-radius: 8px;
-  border: none;
+  border-radius: 10px;
+  border: 1px solid #334155;
   font-size: 1em;
   margin-bottom: 16px;
+
+  background: #020617;
+  color: #e5e7eb;
 }
+
+input[type="text"]::placeholder {
+  color: #94a3b8;
+}
+
+input[type="text"]:focus {
+  outline: none;
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 2px rgba(96,165,250,0.3);
+}
+
 
 button {
   width: 100%;
@@ -116,7 +130,7 @@ button:hover {
 
 <!-- ===== WEITER / RÄTSEL ===== -->
 <div id="weiter" style="display:none;">
-  <h1>✅ Weiter!</h1>
+  <h1>✅ Antwort gesendet!</h1>
   <div class="question">
     🧭 Geht zur nächsten Kreuzung.<br>
     Zählt die Hydranten – der dritte zeigt euch den nächsten Hinweis.
