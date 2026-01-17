@@ -21,12 +21,9 @@ body {
   background: rgba(2,6,23,0.85);
   padding: 28px;
   border-radius: 14px;
-  width: 100%;
   max-width: 420px;
-  box-shadow: 0 20px 40px rgba(0,0,0,.5);
+  width: 100%;
 }
-
-h2 { color:#60a5fa; margin-top:0; }
 
 input[type="text"] {
   width:100%;
@@ -35,25 +32,24 @@ input[type="text"] {
   border:1px solid #334155;
   background:#020617;
   color:#e5e7eb;
-  font-size:1rem;
 }
 
 button {
   width:100%;
   margin-top:16px;
   padding:12px;
-  background:linear-gradient(135deg,#2563eb,#1d4ed8);
+  background:#2563eb;
   color:white;
   border:none;
   border-radius:10px;
   font-weight:bold;
-  font-size:1rem;
-  cursor:pointer;
 }
 </style>
 </head>
 
 <body>
+
+<iframe name="hidden_iframe" style="display:none;"></iframe>
 
 <div class="card">
   <h2>📍 Station 1</h2>
@@ -62,19 +58,19 @@ button {
   <p>❓ Welche Nummer hat der europäische Notruf?</p>
 
   <form
-  action="https://docs.google.com/forms/d/e/1FAIpQLSfosz1E2rF3MxRSQzkChKTitZ-7EhdJPBw3OdIkEckZpFWijw/formResponse"
-  method="POST"
-  target="hidden_iframe"
->
+    action="https://docs.google.com/forms/d/e/1FAIpQLSfosz1E2rF3MxRSQzkChKTitZ-7EhdJPBw3OdIkEckZpFWijw/formResponse"
+    method="POST"
+    target="hidden_iframe"
+    onsubmit="return vorbereiten();"
+  >
 
+    <!-- FESTE WERTE -->
+    <input type="hidden" name="entry.237485034" value="2"> <!-- Gruppe -->
+    <input type="hidden" name="entry.568549425" value="1"> <!-- Station -->
+    <input type="hidden" name="entry.54659171"  id="punkte" value="1">
+    <input type="hidden" name="entry.1797066367" id="zeit" value="1">
 
-    <!-- GOOGLE FORM IDs (KORREKT) -->
-    <input type="hidden" name="entry.237485034" value="2">   <!-- Gruppe -->
-    <input type="hidden" name="entry.568549425" value="1">   <!-- Station -->
-    <input type="hidden" name="entry.54659171"  id="punkte"> <!-- Punkte -->
-    <input type="hidden" name="entry.1797066367" id="zeit">  <!-- Zeit -->
-
-    <!-- Pflichtfeld (sonst speichert Google NICHT) -->
+    <!-- ANTWORT (Pflicht!) -->
     <input
       type="text"
       id="antwort"
@@ -85,10 +81,6 @@ button {
 
     <button type="submit">Antwort absenden</button>
   </form>
-
-  <p style="font-size:.8rem;text-align:center;margin-top:14px;color:#64748b;">
-    Schnitzeljagd · Jugendfeuerwehr Neuhof
-  </p>
 </div>
 
 <script>
@@ -97,15 +89,15 @@ const startZeit = Date.now();
 function vorbereiten() {
   const antwort = document.getElementById("antwort").value.trim();
 
-  // Punkte
+  // Punkte IMMER setzen
   document.getElementById("punkte").value =
     (antwort === "112") ? "10" : "0";
 
-  // Zeit in Sekunden
+  // Zeit IMMER >= 1
   document.getElementById("zeit").value =
     Math.max(1, Math.round((Date.now() - startZeit) / 1000));
 
-  return true; // WICHTIG: echtes Absenden erlauben
+  return true; // EXTREM WICHTIG
 }
 </script>
 
