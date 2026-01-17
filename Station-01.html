@@ -103,29 +103,30 @@ button:active { transform: scale(0.98); }
     </div>
 
     <form
-      action="https://docs.google.com/forms/d/e/1FAIpQLSdk6YOYdRqYYPjkuwNohjtIyYi6CIKm0cePdIuoDRR44wPRdw/formResponse"
-      method="POST"
-      target="hidden_iframe"
-      onsubmit="return bewerten();"
-    >
+  action="https://docs.google.com/forms/d/e/1FAIpQLSdk6YOYdRqYYPjkuwNohjtIyYi6CIKm0cePdIuoDRR44wPRdw/formResponse"
+  method="POST"
+  target="hidden_iframe"
+  onsubmit="return bewerten();"
+>
 
-      <!-- feste Werte -->
-      <input type="hidden" name="entry.237485034" value="2"> <!-- Gruppe -->
-      <input type="hidden" name="entry.568549425" value="1"> <!-- Station -->
-      <input type="hidden" name="entry.54659171" id="punkte" value="0">
-      <input type="hidden" name="entry.1051828811" id="zeit" value="">
+  <!-- feste Werte -->
+  <input type="hidden" name="entry.237485034" value="2"> <!-- Gruppe -->
+  <input type="hidden" name="entry.568549425" value="1"> <!-- Station -->
+  <input type="hidden" name="entry.54659171"  id="punkte" value="0"> <!-- Punkte -->
+  <input type="hidden" name="entry.1797066367" id="zeit" value=""> <!-- ✅ ZEIT -->
 
-      <!-- Antwort -->
-      <input
-        type="text"
-        id="antwort"
-        name="entry.1414978898"
-        placeholder="Antwort eingeben"
-        required
-      >
+  <!-- Antwort -->
+  <input
+    type="text"
+    id="antwort"
+    name="entry.1414978898"
+    placeholder="Antwort eingeben"
+    required
+  >
 
-      <button type="submit">Antwort absenden</button>
-    </form>
+  <button type="submit">Antwort absenden</button>
+</form>
+
   </div>
 
   <!-- ✅ Eigene Erfolgsmeldung -->
