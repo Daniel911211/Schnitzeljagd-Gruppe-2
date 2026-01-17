@@ -142,20 +142,18 @@ const startZeit = Date.now();
 function bewerten() {
   const antwort = document.getElementById("antwort").value.trim();
 
+  // Punkte
   document.getElementById("punkte").value =
     (antwort === "112") ? "10" : "0";
 
-  document.getElementById("zeit").value =
-    Math.max(1, Math.round((Date.now() - startZeit) / 1000));
+  // Zeit (Sekunden seit QR-Scan)
+  const sekunden = Math.floor((Date.now() - startZeit) / 1000);
+  document.getElementById("zeit").value = sekunden.toString();
 
-  setTimeout(() => {
-    document.getElementById("formular").style.display = "none";
-    document.getElementById("gesendet").style.display = "block";
-  }, 200);
-
-  return true;
+  return true; // wichtig: Formular MUSS abgeschickt werden
 }
 </script>
+
 
 </body>
 </html>
