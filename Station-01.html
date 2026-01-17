@@ -1,123 +1,139 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <title>Schnitzeljagd – Station 1 (Gruppe 2)</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Schnitzeljagd – Station 1 (Gruppe 2)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: linear-gradient(135deg, #0f172a, #020617);
-      color: #e5e7eb;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+<style>
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f172a, #020617);
+  font-family: Arial, sans-serif;
+  color: #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-    .card {
-      background: rgba(2, 6, 23, 0.85);
-      border: 1px solid #1e293b;
-      border-radius: 14px;
-      padding: 28px;
-      max-width: 420px;
-      width: 100%;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-    }
+.card {
+  background: rgba(15, 23, 42, 0.95);
+  border-radius: 14px;
+  padding: 28px;
+  max-width: 420px;
+  width: 100%;
+  box-shadow: 0 25px 50px rgba(0,0,0,.6);
+}
 
-    h1 {
-      margin-top: 0;
-      font-size: 1.4rem;
-      color: #60a5fa;
-    }
+h1 {
+  margin: 0 0 6px;
+  color: #60a5fa;
+}
 
-    .meta {
-      font-size: 0.9rem;
-      color: #94a3b8;
-      margin-bottom: 16px;
-    }
+.meta {
+  font-size: 0.9em;
+  color: #93c5fd;
+  margin-bottom: 18px;
+}
 
-    .question {
-      font-size: 1.1rem;
-      margin-bottom: 16px;
-    }
+.question {
+  font-size: 1.1em;
+  margin-bottom: 18px;
+}
 
-    input[type="text"] {
-      width: 100%;
-      padding: 10px;
-      font-size: 1rem;
-      border-radius: 8px;
-      border: 1px solid #334155;
-      background: #020617;
-      color: #e5e7eb;
-      margin-bottom: 16px;
-    }
+input[type=text] {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  font-size: 1em;
+  margin-bottom: 16px;
+}
 
-    input[type="text"]:focus {
-      outline: none;
-      border-color: #60a5fa;
-    }
+button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1em;
+  cursor: pointer;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: white;
+}
 
-    button {
-      width: 100%;
-      padding: 12px;
-      font-size: 1rem;
-      font-weight: bold;
-      border-radius: 10px;
-      border: none;
-      cursor: pointer;
-      background: linear-gradient(135deg, #3b82f6, #2563eb);
-      color: white;
-    }
+button:hover {
+  opacity: 0.9;
+}
 
-    button:hover {
-      opacity: 0.9;
-    }
-
-    .footer {
-      margin-top: 14px;
-      font-size: 0.8rem;
-      color: #64748b;
-      text-align: center;
-    }
-  </style>
+.footer {
+  margin-top: 14px;
+  font-size: 0.8em;
+  color: #94a3b8;
+  text-align: center;
+}
+</style>
 </head>
 
 <body>
 
-  <div class="card">
-    <h1>📍 Station 1</h1>
-    <div class="meta">Gruppe 2 · Feuerwehr-Frage</div>
+<div class="card">
 
-    <div class="question">
-      ❓ Welche Nummer hat der europäische Notruf?
-    </div>
+<!-- ===== STATION ===== -->
+<div id="station">
+  <h1>📍 Station 1</h1>
+  <div class="meta">Gruppe 2 · Feuerwehr-Frage</div>
 
- <form
-  action="https://docs.google.com/forms/d/e/1FAIpQLSdk6YOYdRqYYPjkuwNohjtIyYi6CIKm0cePdIuoDRR44wPRdw/formResponse"
-  method="POST"
-  onsubmit="return bewerten();"
->
+  <div class="question">
+    ❓ Welche Nummer hat der europäische Notruf?
+  </div>
 
-  <!-- feste Werte -->
-  <input type="hidden" name="entry.237485034" value="2"> <!-- Gruppe -->
-  <input type="hidden" name="entry.568549425" value="1"> <!-- Station -->
-  <input type="hidden" name="entry.54659171"  id="punkte" value="0"> <!-- Punkte -->
-  <input type="hidden" name="entry.1051828811" value=""> <!-- Zeit -->
-
-  <!-- Antwort -->
-  <input
-    type="text"
-    id="antwort"
-    name="entry.1414978898"
-    placeholder="Antwort eingeben"
-    required
+  <form
+    action="https://docs.google.com/forms/d/e/1FAIpQLSdk6YOYdRqYYPjkuwNohjtIyYi6CIKm0cePdIuoDRR44wPRdw/formResponse"
+    method="POST"
+    target="hidden_iframe"
+    onsubmit="return absenden();"
   >
 
- <script>
-function bewerten() {
+    <!-- feste Werte -->
+    <input type="hidden" name="entry.237485034" value="2"> <!-- Gruppe -->
+    <input type="hidden" name="entry.568549425" value="1"> <!-- Station -->
+    <input type="hidden" name="entry.54659171"  id="punkte" value=""> <!-- Punkte -->
+    <input type="hidden" name="entry.1051828811" value=""> <!-- Zeit -->
+
+    <!-- Antwort -->
+    <input
+      type="text"
+      id="antwort"
+      name="entry.1414978898"
+      placeholder="Antwort eingeben"
+      required
+    >
+
+    <button type="submit">Antwort absenden</button>
+  </form>
+</div>
+
+<!-- ===== WEITER / RÄTSEL ===== -->
+<div id="weiter" style="display:none;">
+  <h1>✅ Weiter!</h1>
+  <div class="question">
+    🧭 Geht zur nächsten Kreuzung.<br>
+    Zählt die Hydranten – der dritte zeigt euch den nächsten Hinweis.
+  </div>
+</div>
+
+<div class="footer">
+  Schnitzeljagd · Jugendfeuerwehr Neuhof
+</div>
+
+</div>
+
+<!-- unsichtbarer Submit -->
+<iframe name="hidden_iframe" style="display:none;"></iframe>
+
+<script>
+function absenden() {
   const antwort = document.getElementById("antwort").value.trim();
   const punkte  = document.getElementById("punkte");
 
@@ -127,18 +143,14 @@ function bewerten() {
     punkte.value = "0";
   }
 
-  return true; // Formular absenden
+  setTimeout(() => {
+    document.getElementById("station").style.display = "none";
+    document.getElementById("weiter").style.display = "block";
+  }, 300);
+
+  return true;
 }
 </script>
-
-
-    <button type="submit">Antwort absenden</button>
-    </form>
-
-    <div class="footer">
-      Schnitzeljagd · Jugendfeuerwehr Neuhof
-    </div>
-  </div>
 
 </body>
 </html>
