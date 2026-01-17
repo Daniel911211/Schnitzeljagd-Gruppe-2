@@ -2,81 +2,45 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<title>Schnitzeljagd – Station 1</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    background: #0f172a;
-    color: #e5e7eb;
-    padding: 20px;
-    margin: 0;
-  }
-  h1 {
-    margin-top: 0;
-  }
-  input {
-    width: 100%;
-    max-width: 320px;
-    padding: 10px;
-    font-size: 16px;
-  }
-  button {
-    margin-top: 12px;
-    padding: 10px 16px;
-    font-size: 16px;
-    cursor: pointer;
-  }
-</style>
+<title>Schnitzeljagd – Gruppe 2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-
 <body>
 
-<h1>🚒 Station 1</h1>
+<h2>📍 Station 1 – Gruppe 2</h2>
 
-<p><b>Frage:</b><br>
-Wie lautet die europäische Notrufnummer?</p>
+<input type="text" id="antwort" placeholder="Antwort eingeben">
+<br><br>
+<button onclick="absenden()">Antwort absenden</button>
 
-<input type="text" id="answer" placeholder="Antwort eingeben">
-<br>
-<button onclick="submitAnswer()">Antwort absenden</button>
-
-<!-- ===============================
-     GOOGLE FORM SUBMIT (HIDDEN)
-================================ -->
-<form id="sendForm"
-  action="https://docs.google.com/forms/d/e/1FAIpQLSdk6YOYdRqYYPjkuwNohjtIyYi6CIKm0cePdIuoDRR44wPRdw/viewform?usp=dialog"
+<form id="gform"
+  action="https://docs.google.com/forms/d/e/1FAIpQLSdk6YOYdRqYYPjkuwNohjtIyYi6CIKm0cePdIuoDRR44wPRdw/formResponse"
   method="POST"
-  target="_self">
+  target="hidden_iframe">
 
-  <!-- FESTE WERTE -->
-  <input type="hidden" name="entry.630155698" value="2">   <!-- Gruppe -->
-  <input type="hidden" name="entry.1125537486" value="1">  <!-- Station -->
+  <!-- feste Werte -->
+  <input type="hidden" name="entry.237485034" value="2">   <!-- Gruppe -->
+  <input type="hidden" name="entry.568549425" value="1">   <!-- Station -->
+  <input type="hidden" name="entry.1797066367" value="">  <!-- Zeit -->
 
-  <!-- AUTOMATISCH -->
-  <input type="hidden" name="entry.892324664" id="punkte">   <!-- Punkte -->
-  <input type="hidden" name="entry.1082568972" value="">    <!-- Zeit -->
-  <input type="hidden" name="entry.203971329" id="antwort"> <!-- Antwort -->
+  <!-- dynamisch -->
+  <input type="hidden" name="entry.54659171" id="punkte">
+  <input type="hidden" name="entry.1414978898" id="antwortHidden">
 </form>
 
+<iframe name="hidden_iframe" style="display:none;"></iframe>
+
 <script>
-function submitAnswer() {
-  const userAnswer =
-    document.getElementById("answer").value.trim();
+function absenden() {
+  const richtigeAntwort = "Hund";   // <- hier je Station anpassen
+  const eingabe = document.getElementById("antwort").value.trim();
 
-  if (!userAnswer) {
-    alert("Bitte eine Antwort eingeben!");
-    return;
-  }
+  document.getElementById("antwortHidden").value = eingabe;
+  document.getElementById("punkte").value =
+    eingabe.toLowerCase() === richtigeAntwort.toLowerCase() ? 10 : 0;
 
-  const richtigeAntworten = ["112"];
-  const punkte = richtigeAntworten.includes(userAnswer) ? 10 : 0;
-
-  document.getElementById("punkte").value = punkte;
-  document.getElementById("antwort").value = userAnswer;
-
-  document.getElementById("sendForm").submit();
+  document.getElementById("gform").submit();
+  alert("Antwort gespeichert!");
 }
 </script>
 
