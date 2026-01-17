@@ -18,12 +18,12 @@ body {
 }
 
 .card {
-  background: rgba(2,6,23,.85);
+  background: rgba(2,6,23,0.85);
   padding: 28px;
   border-radius: 14px;
   width: 100%;
   max-width: 420px;
-  box-shadow: 0 20px 40px rgba(0,0,0,.5);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
 }
 
 h2 {
@@ -31,11 +31,20 @@ h2 {
   color: #60a5fa;
 }
 
-/* 🔥 SCHÖNES dunkles Antwortfeld */
+.meta {
+  color: #94a3b8;
+  margin-bottom: 16px;
+}
+
+.question {
+  font-size: 1.1rem;
+  margin-bottom: 16px;
+}
+
+/* 🔥 dunkles Antwortfeld */
 input[type="text"] {
   width: 100%;
   padding: 12px;
-  margin-top: 12px;
   border-radius: 10px;
   border: 1px solid #334155;
   background: #020617;
@@ -53,7 +62,6 @@ input[type="text"]:focus {
   box-shadow: 0 0 0 2px rgba(96,165,250,0.3);
 }
 
-/* ✅ eindeutig klickbarer Button */
 button {
   width: 100%;
   padding: 12px;
@@ -67,83 +75,92 @@ button {
   cursor: pointer;
 }
 
-button:hover {
-  opacity: 0.9;
-}
+button:hover { opacity: 0.9; }
+button:active { transform: scale(0.98); }
 
-button:active {
-  transform: scale(0.98);
+.footer {
+  margin-top: 14px;
+  font-size: 0.8rem;
+  color: #64748b;
+  text-align: center;
 }
 </style>
 </head>
 
 <body>
 
+<!-- Google-Form unsichtbar absenden -->
 <iframe name="hidden_iframe" style="display:none;"></iframe>
 
 <div class="card">
-  <h2>📍 Station 1</h2>
-  <p>Gruppe 2 · Feuerwehr-Frage</p>
 
-  <p>❓ Welche Nummer hat der europäische Notruf?</p>
+  <div id="formular">
+    <h2>📍 Station 1</h2>
+    <div class="meta">Gruppe 2 · Feuerwehr-Frage</div>
 
-  <form
-    action="https://docs.google.com/forms/d/e/1FAIpQLSdk6YOYdRqYYPjkuwNohjtIyYi6CIKm0cePdIuoDRR44wPRdw/formResponse"
-    method="POST"
-    target="hidden_iframe"
-    onsubmit="return bewerten();"
-  >
+    <div class="question">
+      ❓ Welche Nummer hat der europäische Notruf?
+    </div>
 
-
-    <input type="hidden" name="entry.237485034" value="2">
-    <input type="hidden" name="entry.568549425" value="1">
-    <input type="hidden" name="entry.54659171" id="punkte" value="0">
-    <input type="hidden" name="entry.1051828811" id="zeit" value="">
-
-    <input
-      type="text"
-      id="antwort"
-      name="entry.1414978898"
-      placeholder="Antwort eingeben"
-      required
+    <form
+      action="https://docs.google.com/forms/d/e/1FAIpQLSdk6YOYdRqYYPjkuwNohjtIyYi6CIKm0cePdIuoDRR44wPRdw/formResponse"
+      method="POST"
+      target="hidden_iframe"
+      onsubmit="return bewerten();"
     >
 
-    <button type="submit">Antwort absenden</button>
-  </form>
+      <!-- feste Werte -->
+      <input type="hidden" name="entry.237485034" value="2"> <!-- Gruppe -->
+      <input type="hidden" name="entry.568549425" value="1"> <!-- Station -->
+      <input type="hidden" name="entry.54659171" id="punkte" value="0">
+      <input type="hidden" name="entry.1051828811" id="zeit" value="">
 
-  <p style="font-size:.8rem;text-align:center;margin-top:14px;color:#64748b;">
+      <!-- Antwort -->
+      <input
+        type="text"
+        id="antwort"
+        name="entry.1414978898"
+        placeholder="Antwort eingeben"
+        required
+      >
+
+      <button type="submit">Antwort absenden</button>
+    </form>
+  </div>
+
+  <!-- ✅ Eigene Erfolgsmeldung -->
+  <div id="gesendet" style="display:none; text-align:center;">
+    <h2 style="color:#22c55e;">✅ Antwort gesendet!</h2>
+    <p style="color:#cbd5f5;">
+      🧭 Nächste Station:<br>
+      Geht Richtung <b>Sportplatz</b> und sucht den nächsten QR-Code.
+    </p>
+  </div>
+
+  <div class="footer">
     Schnitzeljagd · Jugendfeuerwehr Neuhof
-  </p>
+  </div>
+
 </div>
 
 <script>
-const startZeit = Date.now();
-
-function bewerten() {
-  const antwort = document.getElementById("antwort").value.trim();
-  document.getElementById("punkte").value =
-    (antwort === "112") ? "10" : "0";
-
-  document.getElementById("zeit").value =
-    Math.round((Date.now() - startZeit) / 1000);
-
-  return true;
-}
-<script>
+// Startzeit = Zeitpunkt QR-Code Scan
 const startZeit = Date.now();
 
 function bewerten() {
   const antwort = document.getElementById("antwort").value.trim();
 
+  // Punkte setzen
   document.getElementById("punkte").value =
     (antwort === "112") ? "10" : "0";
 
+  // Zeit in Sekunden
   document.getElementById("zeit").value =
     Math.round((Date.now() - startZeit) / 1000);
 
   // Formular ausblenden, Erfolg anzeigen
   setTimeout(() => {
-    document.querySelector("form").style.display = "none";
+    document.getElementById("formular").style.display = "none";
     document.getElementById("gesendet").style.display = "block";
   }, 200);
 
